@@ -8,7 +8,6 @@ class msql:
         try:
             self.connection = pymysql.connect(**self.db_config)
             self.cursor = self.connection.cursor()
-            print("ok")
         except pymysql.Error as e:
             print('Error { ', e, ' }')
 
@@ -30,7 +29,6 @@ class msql:
 
     def select(self, t_edit, id_user):
         query = "SELECT time_checks FROM users WHERE user_id=%s;"
-        print("ok2")
         result = ""
         try:
             self.cursor.execute(query, (id_user))
