@@ -19,6 +19,14 @@ class msql:
         except pymysql.Error as e:
             print('Error { ', e, ' }')
 
+    def update_none(self, id_user):
+        query = "UPDATE users SET time_checks=NULL WHERE user_id=%s;"
+        try:
+            self.cursor.execute(query, (id_user))
+            self.connection.commit()
+        except pymysql.Error as e:
+            print('Error { ', e, ' }')
+
     def insert(self, id_user, first_name, last_name):
         query = "INSERT INTO `users` (`first_name`, `last_name`, `user_id`) VALUES(%s, %s, %s)"
         try:
@@ -27,15 +35,16 @@ class msql:
         except pymysql.Error as e:
             print('Error { ', e, ' }')
 
-    def select(self, t_edit, id_user):
-        query = "SELECT time_checks FROM users WHERE user_id=%s;"
+    def select_time(self):
+        query = "SELECT time_checks, user_id FROM users WHERE time_checks IS NOT NULL;"
         result = ""
         try:
-            self.cursor.execute(query, (id_user))
-            result = self.cursor.fetchone()
+            self.cursor.execute(query)
+            result = self.cursor.fetchall()
             self.connection.commit()
         except pymysql.Error as e:
             print('Error { ', e, ' }')
+            result = None
         return result
 
     def __del__(self):
@@ -45,7 +54,7 @@ class msql:
 
 def main():
     bd = msql()
-    print(bd.select("asd", 3009235))
+    print(bd.select_time())
 
 
 if __name__ == "__main__":

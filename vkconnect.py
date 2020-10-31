@@ -42,7 +42,7 @@ class vkbot:
                         "random_id": random.randint(1, 100)})
 
     def load_and_send_docs(self, user_id, text, docs):
-        uploader = vk_api.VkUpload(self.vk)
+        pass
 
 
 def main():
