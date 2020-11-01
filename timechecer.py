@@ -34,8 +34,7 @@ def main():
     dt = checker()
     responce = dt.cheack()
     for r in responce:
-        print(r['user'])
-        print(r['time'])
+        print(r['user'], ' - ', r['time'])
 
 
 if __name__ == "__main__":
