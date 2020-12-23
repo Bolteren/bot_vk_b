@@ -9,11 +9,11 @@ def seconds_to_dhms(seconds):
     seconds = seconds % 60
     return days, hours, minutes, seconds
 
+
 class checker:
     def __init__(self):
         self.nowtime = datetime.datetime.now().time()
         self.last_cheack = (datetime.datetime.now() - datetime.timedelta(minutes=1)).time()
-
 
     def cheack(self):
         if self.nowtime > self.last_cheack:
