@@ -2,6 +2,7 @@ import amath
 import botConfiguration as bConf
 import re
 import search
+import speeck
 
 
 class DecisionMaking:
@@ -27,7 +28,7 @@ class DecisionMaking:
             elif checs_text_commparis == 'grad':
                 self.responce = amath.correction(params[1], params[0])
             else:
-                pass
+                print("Первое else")
         elif checs_text_harting != 'False':#расчет с разным расположеием значений (переделать!)
             params = re.findall('\d{1,}', self.text)
             if checs_text_harting == 'MTO':
@@ -42,20 +43,17 @@ class DecisionMaking:
                 self.responce = amath.rate_harting(params[0], params[1], params[2])
             elif checs_text_harting == 'OMT':
                 self.responce = amath.rate_harting((params[0], params[2], params[1]))
-            pass
+            print("Хз как сюда попало")
         else:
-            pass
-
-
+            self.responce = speeck.dialog.dialog(self.text)
         return self.responce
-
 
     def pr(self):
         print(search.comparison_degrees(self.text))
 
 
 def main():
-    a = DecisionMaking("мощность 5 температура 10 объем 10")
+    a = DecisionMaking("Удачи")
     a.clean_text()
     print(a.get_responce())
 
