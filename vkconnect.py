@@ -9,24 +9,24 @@ class vkbot:
         self.vk = vk_api.VkApi(token=tokens['vk_tokens'])
         self.vk._auth_token()
 
-    def get_message(self):
+    def get_message(self): #получить сообщение
         self.messages = self.vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
         if self.messages["count"] > 0:
             user_id = self.messages['items'][0]['last_message']['from_id']
             txt = self.messages['items'][0]['last_message']['text']
             return {'user': user_id, 'text': txt}
 
-    def get_user_info(self, user_id):
+    def get_user_info(self, user_id):#получить пользователя по ID
         return self.vk.method('users.get', {'user_ids': user_id})
 
-    def send_user(self, user_id, text):
+    def send_user(self, user_id, text):#ответить пользователю
         self.messages = self.vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
         self.vk.method("messages.send",
                        {"user_id": user_id,
                         "message": text,
                         "random_id": random.randint(1, 100)})
 
-    def load_and_send_immages(self, user_id, text, meddia):
+    def load_and_send_immages(self, user_id, text, meddia):#загрузить картинку
         uploader = vk_api.VkUpload(self.vk)
         img = uploader.photo_messages(meddia)
         media_id = img[0]['id']
@@ -47,7 +47,7 @@ class vkbot:
 
 def main():
     v = vkbot()
-    v.load_and_send_docs(3009235, '123', '123.doc')
+    print(v.get_message())
 
 
 if __name__ == "__main__":
