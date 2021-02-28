@@ -10,11 +10,13 @@ class vkbot:
         self.vk._auth_token()
 
     def get_message(self): #получить сообщение
-        self.messages = self.vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
-        if self.messages["count"] > 0:
-            user_id = self.messages['items'][0]['last_message']['from_id']
-            txt = self.messages['items'][0]['last_message']['text']
-            return {'user': user_id, 'text': txt}
+        while True:
+            self.messages = self.vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
+            if self.messages["count"] > 0:
+                user_id = self.messages['items'][0]['last_message']['from_id']
+                txt = self.messages['items'][0]['last_message']['text']
+                return {'user': user_id, 'text': txt}
+
 
     def get_user_info(self, user_id):#получить пользователя по ID
         return self.vk.method('users.get', {'user_ids': user_id})

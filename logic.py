@@ -6,18 +6,18 @@ import speeck
 
 
 class DecisionMaking:
-    def __init__(self, text):
+    def __init__(self, text):#инициализация
         self.botPhrases = bConf.bot_phrases_config()
         self.userPhrases = bConf.users_phrases_config()
         self.text = text.lower()
         self.responce = ""
 
-    def clean_text(self):
+    def clean_text(self):#удаление лишнего из текста
         text_list = self.text.split()
         fin_list = [word for word in text_list if word not in self.userPhrases['removable']]
         self.text = ' '.join(fin_list)
 
-    def get_responce(self):
+    def get_responce(self):#ответ
         checs_text_commparis = search.comparison_degrees(self.text)
         checs_text_harting = search.check_harting(self.text)
 
@@ -29,7 +29,7 @@ class DecisionMaking:
                 self.responce = amath.correction(params[1], params[0])
             else:
                 print("Первое else")
-        elif checs_text_harting != 'False':#расчет с разным расположеием значений (переделать!)
+        elif checs_text_harting != 'False':#расчет с разным расположеием значений три парам (переделать!)
             params = re.findall('\d{1,}', self.text)
             if checs_text_harting == 'MTO':
                 self.responce = amath.rate_harting(params[2], params[1], params[0])
@@ -43,7 +43,8 @@ class DecisionMaking:
                 self.responce = amath.rate_harting(params[0], params[1], params[2])
             elif checs_text_harting == 'OMT':
                 self.responce = amath.rate_harting((params[0], params[2], params[1]))
-            print("Хз как сюда попало")
+            else:
+                print("Что ты блин ввел!")
         else:
             self.responce = speeck.dialog.dialog(self.text)
         return self.responce

@@ -52,7 +52,7 @@ class conversationBot:
                     counterInterior = counter
                     counterExternal = counter2
             counter += 1
-            if k > 40:
+            if k > 65:
                 result = True
             else:
                 result = False
